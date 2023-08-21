@@ -9,7 +9,7 @@ class LocalStorageSevice {
   }
 
   /// getter
-  bool get isTokenExist => prefs!.containsKey('TOKEN');
+   static bool get isTokenExist => prefs!.containsKey('TOKEN');
 
 
   /// save token to local storage
@@ -21,10 +21,20 @@ class LocalStorageSevice {
   static String? getToken() {
     return prefs!.getString('TOKEN');
   }
+
+  
   /// save token expire time to local storage
   static Future<bool> saveTokenExpireTime() async {
     final expireTime = DateTime.now().millisecondsSinceEpoch + 3600000;
     return await prefs!.setInt('TOKEN_EXPIRE_TIME', expireTime);
+  }
+
+  /// get token expire time from local storage
+  static DateTime? getTokenExpireTime() {
+    final expTime = prefs!.getInt('TOKEN_EXPIRE_TIME');
+    return expTime == null
+        ? null
+        : DateTime.fromMillisecondsSinceEpoch(expTime);
   }
 
  

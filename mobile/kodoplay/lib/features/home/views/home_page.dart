@@ -8,13 +8,14 @@ import 'package:kodoplay/features/home/views/components/playlist_tab.dart';
 import 'package:kodoplay/utils/app_extension.dart';
 import 'package:kodoplay/utils/custom_widget.dart';
 
+
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = useTextEditingController();
-    // final themeMode = ref.watch(appThemeProvider);
+   
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -44,7 +45,10 @@ class HomePage extends HookConsumerWidget {
                 style: Theme.of(context)
                     .textTheme
                     .displayMedium!
-                    .copyWith(fontWeight: FontWeight.w500, color: Colors.white),
+                    .copyWith(
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).iconTheme.color,
+                    ),
               ),
               20.sH,
               SizedBox(
@@ -79,13 +83,9 @@ class HomePage extends HookConsumerWidget {
                     AlbumTab(),
                   ],
                 ),
-              )
+              ),
 
-              // Switch.adaptive(
-              //     value: themeMode == ThemeMode.dark,
-              //     onChanged: (val) {
-              //       ref.read(appThemeProvider.notifier).toggleTheme();
-              //     })
+            
             ],
           ),
         ),

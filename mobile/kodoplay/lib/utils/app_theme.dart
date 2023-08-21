@@ -8,6 +8,7 @@ class AppTheme {
     brightness: Brightness.light,
     primaryColor: Colors.black,
     useMaterial3: true,
+    iconTheme: IconThemeData(color: Colors.black),
     fontFamily: GoogleFonts.poppins().fontFamily,
     textTheme: GoogleFonts.poppinsTextTheme(
       TextTheme(
