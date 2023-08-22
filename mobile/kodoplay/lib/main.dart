@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kodoplay/core/services/local_storage_service.dart';
 import 'package:kodoplay/kodoplay.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  LocalStorageSevice.initialize();
+  // await LocalStorageSevice.saveTokenExpireTime();
   runApp(
     const ProviderScope(
       child: MyApp(),
