@@ -208,6 +208,7 @@ class Item {
   int? trackNumber;
   String? type;
   bool? isLocal;
+  final String uri;
 
   Item({
     // required this.artists,
@@ -218,11 +219,11 @@ class Item {
     required this.href,
     required this.id,
     required this.isPlayable,
-
     required this.name,
     required this.trackNumber,
     required this.type,
     required this.isLocal,
+    required this.uri,
   });
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
@@ -238,6 +239,7 @@ class Item {
         trackNumber: json["track_number"],
         type: json["type"],
         isLocal: json["is_local"],
+      uri: json['uri']
       );
 
   Map<String, dynamic> toJson() => {
@@ -252,6 +254,7 @@ class Item {
         "track_number": trackNumber,
         "type": type,
         "is_local": isLocal,
+        "uri":uri
       };
 }
 

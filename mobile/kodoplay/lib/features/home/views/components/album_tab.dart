@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:kodoplay/features/details/views/album_details.dart';
 import 'package:kodoplay/features/home/logic/providers/album_list.provider.dart';
 
 class AlbumTab extends HookConsumerWidget {
@@ -20,6 +21,7 @@ class AlbumTab extends HookConsumerWidget {
             final album = albums[index];
             return AlbumTile(
               key: ValueKey(album.id),
+              id: album.id!,
               // title: album.name ?? album.label!,
               url: album.images![0].url,
             );
@@ -35,37 +37,46 @@ class AlbumTab extends HookConsumerWidget {
 }
 
 class AlbumTile extends StatelessWidget {
-  // final String title;
+  final String id;
   final String url;
   const AlbumTile({
     super.key,
-    // required this.title,
+    required this.id,
     required this.url,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 170.h,
-      width: 170.w,
-      margin: EdgeInsets.only(top: 20.h),
-      decoration: BoxDecoration(
-        // color: Colors.white,
-        shape: BoxShape.circle,
-        image: DecorationImage(
-          fit: BoxFit.contain,
-          image: NetworkImage(url),
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => AlbumDetail(albumId:id , url: url,),
+          ),
+        );
+      },
+      child: Container(
+        height: 170.h,
+        width: 170.w,
+        margin: EdgeInsets.only(top: 20.h),
+        decoration: BoxDecoration(
+          // color: Colors.white,
+          shape: BoxShape.circle,
+          image: DecorationImage(
+            fit: BoxFit.contain,
+            image: NetworkImage(url),
+          ),
         ),
+        // child: Center(
+        // child: Text(
+        //   title,
+        //   style: Theme.of(context)
+        //       .textTheme
+        //       .bodyLarge!
+        //       .copyWith(color: Theme.of(context).primaryColor),
+        // ),
+        // ),
       ),
-      // child: Center(
-      // child: Text(
-      //   title,
-      //   style: Theme.of(context)
-      //       .textTheme
-      //       .bodyLarge!
-      //       .copyWith(color: Theme.of(context).primaryColor),
-      // ),
-      // ),
     );
   }
 }

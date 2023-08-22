@@ -55,4 +55,38 @@ class SpotifyAlbumService {
       throw Exception(err.toString());
     }
   }
+
+  /// get album tracks
+  Future<Tracks> getAlbumsTracks(String id) async {
+    final path = '${EndPoint.baseUrl}${EndPoint.getAlbumsUrl}/$id/tracks';
+    final url = Uri.parse(path);
+
+    try {
+      final header = {
+        'Authorization': ' Bearer ${await tokenService.getToken()}'
+      };
+      final response = await http.get(
+        url,
+        headers: header,
+      );
+      if (response.statusCode == 200) {
+        final parsed = json.decode(response.body);
+        logger.d(parsed);
+
+        return Tracks.fromJson(parsed);
+      } else {
+        // debugPrint(response.body);
+        throw Exception('Error while fetching albums');
+      }
+    } on SocketException catch (_) {
+      throw Exception('No Internet Connection');
+    } on TimeoutException catch (_) {
+      throw Exception('Connection Timeout,try again');
+    } on FormatException catch (err) {
+      throw Exception(err.message);
+    } catch (err, stacktrace) {
+      debugPrint(stacktrace.toString());
+      throw Exception(err.toString());
+    }
+  }
 }
